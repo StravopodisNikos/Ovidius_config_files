@@ -62,20 +62,20 @@
 #define ADDR_PRO_INDIRECTDATA_FOR_WRITE_RGB_LED             674
 
 // Protocol version
-#define PROTOCOL_VERSION                        2.0                 // Protocol Version of Dunamixels used
+#define DXL_PROTOCOL_VERSION                        2.0                 // Protocol Version of Dunamixels used
 
 // Serial Communication Properties
-#define BAUDRATE                                2000000
-#define DEVICENAME                              "/dev/ttyACM1"
+#define BAUDRATE                                57600
+#define DEVICENAME                              "/dev/ttyUSB0"
 #define CMD_SERIAL                              Serial
 #define ESC_ASCII_VALUE                         0x1b
 
-#define DXL_RESOLUTION					   501923	
+#define DXL_RESOLUTION					501923	
 
 // Metamorphic Structure Info
-#define nDoF							   4	
-#define nPseudoJoints					   1	
-
+#define nDoF						4	
+#define nPseudoJoints					1	
+#define DXL_MOTORS					3
 #define SERIAL_BAUDRATE		115200
 
 // Definitions for PseudoSPIcomm library
