@@ -5,9 +5,17 @@
 // MOTOR ID: STP1_ID Joint1 axis Stepper Nema34
 
 #define HOME_TRIGGER_SWITCH        	3                                // This is the Homing trigger switch Previous name:HALL_SWITCH_PIN1
+// IF DXL SHIELD ->
 #define HALL_SWITCH_PIN2        	18				 // This is the Hall effect-MIN limit switch	(4 when no interrupt used)		
 #define HALL_SWITCH_PIN3        	19				 // This is the Hall effect-MAX limit switch    (5 when no interrupt used)
- 
+// IF DXL SHIELD <-
+// IF OPENCR1.0 ->
+//#define HALL_SWITCH_PIN2        	42				 // EXTI_Pin2 = 5			
+//#define HALL_SWITCH_PIN3        	45                               // EXTI_Pin3 = 6
+//#define EXTI_Pin2			5
+//#define EXTI_Pin3			6
+// IF OPENCR1.0 <-
+
 #define STEP_Pin               		6
 #define DIR_Pin                		9
 #define ENABLE_Pin               	10
@@ -23,5 +31,8 @@
 #define STP_MOVING_STATUS_THRESHOLD     1
 
 #define STP_HOMING_DELAY		500
-#define STP_FIXED_DELAY			500	
+#define STP_FIXED_DELAY			500
+#define BREAK_FREE_STEPS		500
+
+#define ACCEL_WIDTH_DENOM		5	
 

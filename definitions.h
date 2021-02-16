@@ -65,7 +65,7 @@
 #define DXL_PROTOCOL_VERSION                        2.0                 // Protocol Version of Dunamixels used
 
 // Serial Communication Properties
-#define BAUDRATE                                57600
+#define DXL_BAUDRATE                                57600
 #define DEVICENAME                              "/dev/ttyUSB0"
 #define CMD_SERIAL                              Serial
 #define ESC_ASCII_VALUE                         0x1b
@@ -76,7 +76,7 @@
 #define nDoF						4	
 #define nPseudoJoints					1	
 #define DXL_MOTORS					3
-#define SERIAL_BAUDRATE		115200
+#define SERIAL_BAUDRATE		57600
 
 // Definitions for PseudoSPIcomm library
 
@@ -216,5 +216,4 @@
 #define STEP_ANGLE_ADDR		30		// float
 #define CS_EEPROM_ADDR		40		// byte			// Always updated with homing
 #define CP_EEPROM_ADDR		50		// byte			// 50 must be garbage now(changed in 30.6.2020)
-#define CD_EEPROM_ADDR		60		// uint32_t		// ...
-	
+#define CD_EEPROM_ADDR		60		// uint32_t		// ...	
