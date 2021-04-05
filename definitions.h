@@ -4,6 +4,7 @@
 #define ADDR_PRO_GOAL_VELOCITY                  552
 #define ADDR_PRO_PROF_ACCEL                     556
 #define ADDR_PRO_PROF_VEL                       560
+#define ADDR_PRO_PRESENT_CURRENT                574
 #define ADDR_PRO_PRESENT_VELOCITY               576
 #define ADDR_PRO_MOVING                         570
 #define ADDR_PRO_MOVING_STATUS                  571
@@ -34,7 +35,8 @@
 #define LEN_PRO_ACCEL_LIMIT                     4
 #define LEN_PRO_VEL_LIMIT                       4
 #define LEN_PRO_MAX_POS_LIMIT                   4
-#define LEN_PRO_MAX_POS_LIMIT                   4
+#define LEN_PRO_MIN_POS_LIMIT                   4
+#define LEN_PRO_PRESENT_CURRENT                 2
 #define LEN_PRO_MOVING                          1
 #define LEN_PRO_MOVING_STATUS                   1 
 #define LEN_PRO_LED                             1
@@ -65,18 +67,25 @@
 #define DXL_PROTOCOL_VERSION                        2.0                 // Protocol Version of Dunamixels used
 
 // Serial Communication Properties
-#define DXL_BAUDRATE                                57600
-#define DEVICENAME                              "/dev/ttyUSB0"
+#define SERIAL_BAUDRATE1			57600
+#define SERIAL_BAUDRATE2			115200
+#define SERIAL_BAUDRATE3                        1000000
+
+#define DXL_BAUDRATE0                           9600
+#define DXL_BAUDRATE1                           57600
+#define DXL_BAUDRATE2                           115200
+#define DXL_BAUDRATE3                           1000000
+#define DXL_BAUDRATE4                           2000000
+#define DXL_BAUDRATE5                           3000000
+#define DEVICENAME                              "/dev/ttyACM1"
 #define CMD_SERIAL                              Serial
 #define ESC_ASCII_VALUE                         0x1b
 
-#define DXL_RESOLUTION					501923	
+#define DXL_RESOLUTION				501923	
 
-// Metamorphic Structure Info
-#define nDoF						4	
-#define nPseudoJoints					1	
-#define DXL_MOTORS					3
-#define SERIAL_BAUDRATE		57600
+// Metamorphic Structure Info	
+#define nPseudoJoints				1	
+
 
 // Definitions for PseudoSPIcomm library
 
@@ -85,22 +94,22 @@
 #define MOSI_NANO 			11
 #define MISO_NANO 			12
 #define SCK_NANO 			13
-#define MOSI_MASTER 		11			// 11 for UNO 51 for MEGA
-#define MISO_MASTER 		12			// 12         50
+#define MOSI_MASTER 			11			// 11 for UNO 51 for MEGA
+#define MISO_MASTER 			12			// 12         50
 #define SCK_MASTER			13			// 13         52
-#define TXled_Pin 			A2		
-#define RXled_Pin 			A1		
-#define statusLED_Pin		6			// 6	
-#define dirPin_NANO			A5
-#define stepPin_NANO		A4
-#define enabPin_NANO		A3
-#define hallSwitch_Pin		3			// used for homing hall sensor
-#define pseudoLimitSwitch_Pin 2
-#define RELAY_lock_Pin2		8
-#define RELAY_lock_Pin		7
+#define greenLED_Pin 			A2		
+#define blueLED_Pin 			A1		
+#define redLED_Pin			A3			// 6	
+#define dirPin_NANO			5
+#define stepPin_NANO			4
+#define enabPin_NANO			6
+#define hallSwitch_Pin			3			// used for homing hall sensor
+#define pseudoLimitSwitch_Pin 		2
+#define RELAY_lock_Pin2			8
+#define RELAY_lock_Pin			7
 
-#define SSpinPseudo1		4
-#define SSpinPseudo2		5
+#define SSpinPseudo1			4
+#define SSpinPseudo2			5
 
 #define PSEUDO1_ID 			1
 #define PSEUDO2_ID 			2
@@ -109,14 +118,14 @@
 #define PSEUDO5_ID 			5
 #define PSEUDO6_ID 			6
 
-#define ADDRESS_WIDTH		6
+#define ADDRESS_WIDTH			6
 
-#define PSEUDO_NUMBER1 		1
-#define PSEUDO_NUMBER2		2
-#define PSEUDO_NUMBER3		3
-#define PSEUDO_NUMBER4		4
-#define PSEUDO_NUMBER5		5
-#define PSEUDO_NUMBER6		6
+#define PSEUDO_NUMBER1 			1	
+#define PSEUDO_NUMBER2			2
+#define PSEUDO_NUMBER3			3
+#define PSEUDO_NUMBER4			4
+#define PSEUDO_NUMBER5			5
+#define PSEUDO_NUMBER6			6
 
 // ============================================================================
 // SPI COMMUNICATION BYTES => MUST BE UNIQUE
@@ -126,40 +135,40 @@
 // ci's: these are the bytes given to setGoalPositionMaster() for desired anatomy Metamorphosis
 #define junk_command		0
 
-#define c1					1
-#define c2					2
-#define c3					3
-#define c4					4
-#define c5					5	
-#define c6					6
-#define c7					7
-#define c8					8
-#define c9					9	
-#define c10					10
-#define c11					11
-#define c12					12
-#define c13					13
-#define c14					14
-#define c15					15
-#define wrong_ci				16
-#define home_ci				8
+#define c1			1
+#define c2			2
+#define c3			3
+#define c4			4
+#define c5			5	
+#define c6			6
+#define c7			7
+#define c8			8
+#define c9			9	
+#define c10			10
+#define c11			11
+#define c12			12
+#define c13			13
+#define c14			14
+#define c15			15
+#define wrong_ci		16
+#define home_ci			8
 
 // COMMANDS FROM MASTER TO SLAVE
-#define CMD_LOCK		    	20
-#define CMD_UNLOCK	    		21
+#define CMD_LOCK		20
+#define CMD_UNLOCK	    	21
 #define CMD_SGP	  		30		// In single byte transfer is overrided
-#define CMD_MOVE			40
-#define CMD_STOP			41		// Danger Stop Event!
-#define CMD_HOME			42
-#define CMD_PRE_HOME        43	 
-#define CMD_CONNECT		     60
-#define CMD_GIVE_IS		     70
-#define CMD_GIVE_CS		     71
-#define CMD_GIVE_CP			72
-#define CMD_EXIT_META_EXEC    80
-#define CMD_CONT_META_EXEC    81
-#define CMD_GIVE_EEPROM	     90		
-#define CMD_SAVE_EEPROM	     91		
+#define CMD_MOVE		40
+#define CMD_STOP		41		// Danger Stop Event!
+#define CMD_HOME		42
+#define CMD_PRE_HOME        	43	 
+#define CMD_CONNECT		60
+#define CMD_GIVE_IS		70
+#define CMD_GIVE_CS		71
+#define CMD_GIVE_CP		72
+#define CMD_EXIT_META_EXEC    	80
+#define CMD_CONT_META_EXEC    	81
+#define CMD_GIVE_EEPROM	     	90		
+#define CMD_SAVE_EEPROM	     	91		
 
 // STATES RETURNED FROM SLAVE TO MASTER
 #define STATE_LOCKED 	  	100
@@ -202,14 +211,18 @@
 #define SLAVE_RESPONSE_TIME	20
 
 // ============================================================================
-
+#define FIRST_HIT					1
 #define GEAR_FACTOR_PSEUDO1				60
-#define SPR_PSEUDO1						800			// Depends on driver dip switches
-#define METAMORPHOSIS_Ci_STEPS			1715		// calculated using formula: (step_angle_deg/360) * spr * GEAR_FACTOR for 15 holes
+#define SPR_PSEUDO1					800	// Depends on driver dip switches
+#define METAMORPHOSIS_Ci_STEPS				1715	// calculated using formula: (step_angle_deg/360) * spr * GEAR_FACTOR for 15 holes
 #define HOMING_CALIBRATION_LIMIT			250
-
+#define FIXED_PSEUDO_STEP_DELAY 			1000 	// [micros]
+#define PSEUDO_MOVE_LED_BLINK_INTERVAL			500  	// [millis]
+#define PSEUDO_HOME_LED_BLINK_INTERVAL			250  	// [millis]
+	
 // ============================================================================
-// EEPROM AREA ADDRESSES [0~255]
+// EEPROM AREA ADDRESSES [0~255] -> all moved to ovidius_robot_controller_eeprom_addresses.h created 17-2-21
+/*
 #define ID_EEPROM_ADDR		0		// int
 #define MAX_POS_LIM_ADDR	10		// float
 #define MIN_POS_LIM_ADDR	20		// float
@@ -217,3 +230,4 @@
 #define CS_EEPROM_ADDR		40		// byte			// Always updated with homing
 #define CP_EEPROM_ADDR		50		// byte			// 50 must be garbage now(changed in 30.6.2020)
 #define CD_EEPROM_ADDR		60		// uint32_t		// ...	
+*/
